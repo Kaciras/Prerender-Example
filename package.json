@@ -1,0 +1,15 @@
+{
+  "name": "Prerender-example",
+  "author": "Kaciras",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "selenium-webdriver": "^3.6.0"
+  }
+}
