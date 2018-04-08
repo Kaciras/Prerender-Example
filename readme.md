@@ -5,7 +5,7 @@ an example for prerender html page using nodejs + selenium + chrome.
 # Requirements
 
 * NodeJs version >= 9
-* Chrome Driver in working directory or `PATH`, [download page](https://sites.google.com/a/chromium.org/chromedriver/)
+* Chrome Driver ([download page](https://sites.google.com/a/chromium.org/chromedriver/)) in working directory or `PATH` 
 * lastest Chrome
 
 # run example
@@ -28,4 +28,4 @@ const prerenderer = require("./prerender")("/path/to/chrome");
 const html = await prerenderer.render("http://example.com");
 ```
 
-**Notice: if you want build a service on linux, don't run as root, which will cause chrome to crash after some time.**
+**Notice: if you are build a service on linux, don't run as root, which will cause chrome to crash after some time.**
