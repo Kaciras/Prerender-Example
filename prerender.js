@@ -9,9 +9,9 @@ class Renderer {
 			/*
 			 * "--no-sandbox" is required for Linux without GUI
 			 * "--disable-gpu" is required for Windows,
-			 * remove "--headless" will shows browser GUI, it's useful for debug.
+			 * remove "--headless" will shows browser GUI. It's useful for debug.
 			 */
-			args: ["--headless", "--disable-extensions", "--enable-logging --v=9", "--no-sandbox", "--disable-gpu"]
+			args: ["--headless", "--disable-extensions", "--enable-logging --v=1", "--no-sandbox", "--disable-gpu"]
 		});
 
 		chromeCapabilities.set("chrome.binary", chromePath);
@@ -59,28 +59,8 @@ class Renderer {
 			.getAttribute("outerHTML");
 	}
 
-	async filter(req, res, next) {
-		if (!req.query["prerender"]) {
-			return next();
-		}
-
-		/* if the script in page needs to read original url,the argument of driver.get() can't use localhost as domain. */
-		// const url = "http://localhost" + req.originalUrl;
-		const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-		console.info("rendering page for", fullUrl);
-
-		try {
-			const html = await this.render(fullUrl);
-
-			/* print browser console logs for debug. */
-			const browserLogs = await this.driver.manage().logs().get("browser");
-			browserLogs.forEach(record => console.debug(record.message));
-
-			res.send(html).end();
-		} catch (err) {
-			console.error("render error: " + err.stack);
-			next(err)
-		}
+	async logs() {
+		return await this.driver.manage().logs().get("browser");
 	}
 }
 

@@ -6,9 +6,7 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="app">
-	<h1>Content will render in client</h1>
-</div>
+<div id="app"></div>
 <script>
 	/**
 	 * get URL search parameter.
@@ -25,12 +23,13 @@
 	function render(values) {
 		const mountPoint = document.getElementById("app");
 
+		const h = document.createElement("h1");
 		if(getQueryString("isPrerender") === "true") {
-			mountPoint.innerText = "";
-			const e = document.createElement("h1");
-			e.innerText = "Content is rendered in server";
-			mountPoint.appendChild(e);
+			h.innerText = "Content was rendered on server";
+		} else {
+			h.innerText = "Content was rendered on client";
 		}
+		mountPoint.appendChild(h);
 
 		for (let value of JSON.parse(values)) {
 			const e = document.createElement("p");
