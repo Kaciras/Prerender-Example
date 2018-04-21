@@ -27,7 +27,7 @@ app.use(async (req, res, next) => {
 		const html = await prerenderer.render(fullUrl);
 
 		/* print browser console logs for debug. */
-		(await prerenderer.logs()).forEach(log => console.debug(log.message));
+		prerenderer.logs().then(logs => logs.forEach(log => console.debug(log.message)));
 
 		res.send(html).end();
 	} catch (err) {

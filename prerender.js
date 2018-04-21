@@ -46,21 +46,25 @@ class Renderer {
 		// await driver.sleep(3000);
 
 		/* or polling the specified flag */
+		let body = await this.driver.findElement(selenium.By.css("body"));
 		await new FluntWait(this.driver)
 			.withTimeout(3000)
-			.pollingEvery(500)
+			.pollingEvery(200)
 			.throwOnTimeout(false)
-			.until(async driver => await (await driver
-				.findElement(selenium.By.css("body")))
-				.getAttribute("data-render-complete") === "true");
+			.until(async d => await body.getAttribute("data-render-complete") === "true");
 
 		return await (await this.driver
 			.findElement(selenium.By.css("html")))
 			.getAttribute("outerHTML");
 	}
 
-	async logs() {
-		return await this.driver.manage().logs().get("browser");
+	/**
+	 * get console logs from Developer Tools/Console.
+	 *
+	 * @return {promise.Thenable<Array<logging.Entry>>} logs entry
+	 */
+	logs() {
+		return this.driver.manage().logs().get("browser");
 	}
 }
 

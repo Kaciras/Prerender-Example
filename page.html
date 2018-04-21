@@ -41,6 +41,8 @@
 		document.body.setAttribute("data-render-complete", "true");
 	}
 
+	console.error("test get console logs.");
+
 	/* if already rendered, don't render again */
 	if(!document.body.getAttribute("data-render-complete")) {
 		const xhr = new XMLHttpRequest();
