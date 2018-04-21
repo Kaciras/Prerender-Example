@@ -8,24 +8,27 @@ an example for prerender html page using nodejs + selenium + chrome.
 * Chrome Driver ([download page](https://sites.google.com/a/chromium.org/chromedriver/)) in working directory or `PATH` 
 * lastest Chrome
 
-# run example
+# Run example
 
 ```shell
 npm install
 node bin/www /path/to/chrome
 ```
 
-open [http://localhost:3000/page.html](http://localhost:3000/page.html), you can see the result render by browser. If you checked `Disable JavaScript` in browser developer tools, the page will not be rendered.
+open [http://localhost:3000/page.html](http://localhost:3000/page.html), you can see the result render by browser. 
+If you checked `Disable JavaScript` in browser developer tools, the page will not be rendered.
 
-open [http://localhost:3000/page.html?prerender=true](http://localhost:3000/page.html?prerender=true), the page will prerendered on server, and don't need to run render scripts on the client.
+open [http://localhost:3000/page.html?prerender=true](http://localhost:3000/page.html?prerender=true), the page will
+ prerendered on server, and don't need to run render scripts on the client.
 
-# usage for your code 
+# Usage
 
-only required `prerender.js`.
+renderer a page:
 
 ```javascript
-const prerenderer = require("./prerender")("/path/to/chrome");
-const html = await prerenderer.render("http://example.com");
+const Renderer = require("./prerender");
+const renderer = new Renderer("/path/to/chrome");
+const html = await renderer.render("http://example.com");
 ```
 
-**Notice: if you are build a service on linux, don't run as root, which will cause chrome to crash after some time.**
+**Notice: if you will build a service on linux, don't run as root, which will cause chrome to crash after some time.**
