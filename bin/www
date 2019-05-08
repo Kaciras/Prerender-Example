@@ -49,7 +49,7 @@ function onError(error) {
 }
 
 function onListening() {
-	const baseUrl = `http://localhost:${server.address().port}/page.html`;
+	const baseUrl = `http://localhost:${server.address().port}`;
 	console.info(`${baseUrl} is render in client`);
 	console.info(`${baseUrl}?prerender=true is render in server`)
 }
