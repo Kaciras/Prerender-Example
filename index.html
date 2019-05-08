@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Prerender example</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app"></div>
+<script>
+/**
+ * get URL search parameter.
+ *
+ * @param name {string} parameter name
+ * @return {string} the value, maybe null.
+ */
+function getQueryString(name) {
+	const urlQueryRegex = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	const r = window.location.search.substr(1).match(urlQueryRegex);
+	return r === null ? null : decodeURI(r[2]);
+}
+
+function render(values) {
+	const mountPoint = document.getElementById("app");
+
+	const h = document.createElement("h1");
+	if (getQueryString("isPrerender") === "true") {
+		h.innerText = "Content was rendered on server";
+	} else {
+		h.innerText = "Content was rendered on client";
+	}
+	mountPoint.appendChild(h);
+
+	for (let value of JSON.parse(values)) {
+		const e = document.createElement("p");
+		e.innerText = `Received values ${value}`;
+		mountPoint.appendChild(e);
+	}
+
+	/* set a attribute to mark render id completed */
+	document.body.setAttribute("data-render-complete", "true");
+}
+
+console.log("This message will be shown on console.");
+
+/* if already rendered, don't render again */
+if (!document.body.getAttribute("data-render-complete")) {
+	const xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = () => {
+		if (xhr.readyState !== 4) return;
+		if (xhr.status === 200) render(xhr.response);
+		else document.getElementById("app").innerText = "Render Error!";
+	};
+	xhr.open("GET", "/values", true);
+	xhr.send();
+}
+</script>
+</body>
+</html>

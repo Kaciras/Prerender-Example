@@ -26,9 +26,9 @@ open [http://localhost:3000/page.html?prerender=true](http://localhost:3000/page
 renderer a page:
 
 ```javascript
-const Renderer = require("./prerender");
+const Renderer = require("kx-prerender/lib/prerender");
 const renderer = new Renderer("/path/to/chrome");
 const html = await renderer.render("http://example.com");
 ```
 
-**Notice: if you will build a service on linux, don't run as root, which will cause chrome to crash after some time.**
+**Notice: if you will build a service on linux, don't run as root, which will cause chrome to crash unpredictable.**
