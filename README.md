@@ -4,9 +4,9 @@ an example for prerender html page using nodejs + selenium + chrome.
 
 # Requirements
 
-* NodeJs version >= 9
+* NodeJs >= 9
 * Chrome Driver ([download page](https://sites.google.com/a/chromium.org/chromedriver/)) in working directory or `PATH` 
-* lastest Chrome
+* Chrome browser that matches driver version
 
 # Run example
 
@@ -27,7 +27,7 @@ renderer a page:
 
 ```javascript
 const Renderer = require("kx-prerender/lib/prerender");
-const renderer = new Renderer("/path/to/chrome");
+const renderer = await Renderer.create("/path/to/chrome", false);
 const html = await renderer.render("http://example.com");
 ```
 
