@@ -3,6 +3,9 @@
 	"author": "Kaciras",
 	"version": "1.0.0",
 	"license": "MIT",
+	"engines": {
+		"node": ">=9.0.0"
+	},
 	"scripts": {
 		"start": "node ./bin/www"
 	},
